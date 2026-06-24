@@ -47,9 +47,7 @@ class AuthCubit extends Cubit<AuthState> {
     }
   }
 
-  
-
-Future<void> registerUser({
+  Future<void> registerUser({
     required String email,
     required String password,
   }) async {
@@ -79,5 +77,9 @@ Future<void> registerUser({
     }
   }
 
-
+  @override
+  void onChange(Change<AuthState> change) {
+    super.onChange(change);
+    print(change);
+  }
 }

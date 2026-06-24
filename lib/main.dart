@@ -1,4 +1,5 @@
 import 'package:chat_app/firebase_options.dart';
+import 'package:chat_app/simple_bloc_observer.dart';
 import 'package:chat_app/view/bloc/auth_bloc/auth_bloc.dart';
 import 'package:chat_app/view/chat_view.dart';
 import 'package:chat_app/view/cubit/auth_cubit/auth_cubit.dart';
@@ -14,6 +15,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
+  Bloc.observer = SimpleBlocObserver();
   runApp(const chatApp());
 }
 
@@ -24,17 +27,17 @@ class chatApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (context)=>AuthCubit()),
-        BlocProvider(create: (context)=> ChatCubit()),
-        BlocProvider(create: (context)=> ThemeCubit()),
-        BlocProvider(create: (context)=> AuthBloc())
+        BlocProvider(create: (context) => AuthCubit()),
+        BlocProvider(create: (context) => ChatCubit()),
+        BlocProvider(create: (context) => ThemeCubit()),
+        BlocProvider(create: (context) => AuthBloc()),
       ],
       child: MaterialApp(
         routes: {
           LoginView.id: (context) => LoginView(),
           RegisterView.id: (context) => RegisterView(),
-          ChatView.id:(context) =>ChatView(),
-          InitialPage.id:(context) => InitialPage()
+          ChatView.id: (context) => ChatView(),
+          InitialPage.id: (context) => InitialPage(),
         },
         debugShowCheckedModeBanner: false,
         initialRoute: InitialPage.id,
